@@ -15,10 +15,10 @@ python -m pytest = run prog with shorter summary
 email_parser = to extract useful information from the mail and submit it to PHISHGUARD
 (app/email_parser.py)
 
-text_analyzer = detects sus phrases such as urgent otps and psws, anything that creates some kind of presssure on the user
+text_analyzer = detects suspecious phrases such as urgent otps and psws, anything that creates some kind of presssure on the user
 (app/text_analyzer.py)
 
-url_analyzer = extracts url from the mail and checks for sus phrases without oepning or visiting the actuall URL
+url_analyzer = extracts url from the mail and checks for suspecious phrases without oepning or visiting the actuall URL
 (app/url_analyzer.py)
 
 header_analyzer = checks for email headers so that it can identify if the sender and "reply to" addr are different or not, it shld not be diff

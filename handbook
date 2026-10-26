@@ -1,0 +1,56 @@
+source .venv/bin/activate = activate python enviroment
+python -m app.email_parser = run the module 
+python -m app.url_analyzer = run the URL module independently
+python -m app.header_analyzer = test the header independently
+python -m app.risk_scorer = run risk score 
+python -m app.report_generator = run report generator
+python -m py_compile app/"file name".py = to compile any file and check for syntax error
+nano tests/test_email_analysis.py = open the test case in NANO and edit test cases
+
+
+python -m pytest -v = run the whole project
+python -m pytest = run prog with shorter summary
+
+
+email_parser = to extract useful information from the mail and submit it to PHISHGUARD
+(app/email_parser.py)
+
+text_analyzer = detects sus phrases such as urgent otps and psws, anything that creates some kind of presssure on the user
+(app/text_analyzer.py)
+
+url_analyzer = extracts url from the mail and checks for sus phrases without oepning or visiting the actuall URL
+(app/url_analyzer.py)
+
+header_analyzer = checks for email headers so that it can identify if the sender and "reply to" addr are different or not, it shld not be diff
+(app/header_analyzer.py)
+
+risk_scorer = calculates the risk according to the given risk score sheet
+(app/risk_scorer.py)
+
+report_generator = combines everything and creates a final report for the user whcih will inckude every info they need to know about the given email
+(app/report_generator.py)
+
+
+analyzer_email = holds connection of every component and pipelines of PHISHGUARD
+
+
+
+FILE_MANAGER-
+
+Phisguard/
+│
+├── .venv/
+│
+├── app/
+│   ├── email_parser.py
+│   ├── text_analyzer.py
+│   ├── url_analyzer.py
+│   ├── header_analyzer.py
+│   ├── risk_scorer.py
+│   ├── report_generator.py
+│   └── analyzer_email.py
+│
+├── tests/
+│   └── test_email_analysis.py
+│
+└── ...

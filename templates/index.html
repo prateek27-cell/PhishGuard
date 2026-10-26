@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHISHGUARD | Email Threat Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="container">
+
+        <header class="hero">
+            <div class="logo">PHISHGUARD</div>
+            <p class="subtitle">Email Threat Analysis</p>
+            <p class="description">
+                Detect suspicious email indicators without opening or visiting
+                links contained in the message.
+            </p>
+        </header>
+
+        <section class="panel">
+            <h2>Analyze an Email</h2>
+
+            <form id="analysis-form" method="POST" enctype="multipart/form-data">
+
+                <div class="upload-section">
+                    <label for="email_file">Upload an email file (.eml)</label>
+                    <input
+                        type="file"
+                        id="email_file"
+                        name="email_file"
+                        accept=".eml,message/rfc822"
+                    >
+                    <p class="upload-help">
+                        Select an email file, or paste the raw email below.
+                    </p>
+                </div>
+
+                <label for="email_text">Raw email content</label>
+                <textarea
+                    id="email_text"
+                    name="email_text"
+                    rows="12"
+                    placeholder="From: example@domain.com&#10;Subject: Example email..."
+                >{{ email_text }}</textarea>
+
+                <button id="analyze-button" type="submit">
+                    ANALYZE EMAIL
+                </button>
+
+                <p id="loading-message" class="loading" hidden>
+                    Analyzing email indicators...
+                </p>
+            </form>
+
+            <div id="error-container">
+                {% if error %}
+                    <div class="error" role="alert">{{ error }}</div>
+                {% endif %}
+            </div>
+        </section>
+
+        <div id="results-container">
+        {% if report %}
+            <section class="panel results">
+                <h2>Analysis Results</h2>
+
+                <div class="score">
+                    <span>Risk Score</span>
+                    <strong>{{ report.get('risk_score', 0) }}/100</strong>
+                </div>
+
+                <p>
+                    Risk Level:
+                    <strong>{{ report.get('risk_level', 'Unknown') }}</strong>
+                </p>
+
+                <h3>Email Information</h3>
+                <p>Sender: {{ report.get('email', {}).get('sender', 'Unknown') }}</p>
+                <p>Subject: {{ report.get('email', {}).get('subject', 'Unknown') }}</p>
+
+                <h3>Text Findings</h3>
+                {% if report.get('text_findings') %}
+                    <ul>
+                    {% for finding in report.get('text_findings', []) %}
+                        <li>
+                            <strong>{{ finding.get('category', 'Finding') }}</strong>
+                            — {{ finding.get('explanation', '') }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No configured text warning indicators were detected.</p>
+                {% endif %}
+
+                <h3>URL Findings</h3>
+                {% if report.get('url_findings') %}
+                    {% for item in report.get('url_findings', []) %}
+                        <div class="finding">
+                            <p class="url">{{ item.get('url', '') }}</p>
+                            {% if item.get('findings') %}
+                                <ul>
+                                {% for finding in item.get('findings', []) %}
+                                    <li>{{ finding }}</li>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No configured URL warning indicators detected.</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No URLs were found in the extracted email body.</p>
+                {% endif %}
+
+                <h3>Header Findings</h3>
+                {% if report.get('header_findings') %}
+                    <ul>
+                    {% for finding in report.get('header_findings', []) %}
+                        <li>{{ finding.get('explanation', 'Header warning detected') }}</li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No configured header warning indicators were detected.</p>
+                {% endif %}
+
+                <h3>Recommendations</h3>
+                <ul>
+                {% for recommendation in report.get('recommendations', []) %}
+                    <li>{{ recommendation }}</li>
+                {% endfor %}
+                </ul>
+
+                <p class="disclaimer">
+                    The score is based on configured rules. It does not prove
+                    that an email is malicious or safe.
+                </p>
+            </section>
+        {% endif %}
+        </div>
+
+        <footer>PHISHGUARD · Email security analysis</footer>
+    </main>
+
+    <script>
+    const form = document.getElementById("analysis-form");
+    const fileInput = document.getElementById("email_file");
+    const textInput = document.getElementById("email_text");
+    const button = document.getElementById("analyze-button");
+    const loading = document.getElementById("loading-message");
+    const resultsContainer = document.getElementById("results-container");
+    const errorContainer = document.getElementById("error-container");
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (!fileInput.files.length && !textInput.value.trim()) {
+            errorContainer.innerHTML =
+                '<div class="error" role="alert">Please upload an .eml file or paste an email before analyzing.</div>';
+            return;
+        }
+
+        const formData = new FormData(form);
+
+        button.disabled = true;
+	button.textContent = "ANALYZE EMAIL";
+        errorContainer.innerHTML = "";
+
+        try {
+            const response = await fetch("/", {
+                method: "POST",
+                body: formData,
+                headers: { "X-Requested-With": "fetch" }
+            });
+
+            const html = await response.text();
+            const parsedPage = new DOMParser().parseFromString(html, "text/html");
+
+            const newResults = parsedPage.getElementById("results-container");
+            const newError = parsedPage.querySelector("#error-container .error");
+
+            if (!response.ok) {
+                throw new Error("The server returned an error. Check the Flask terminal.");
+            }
+
+            if (newError) {
+                errorContainer.innerHTML = "";
+                errorContainer.appendChild(newError.cloneNode(true));
+            } else if (newResults) {
+                resultsContainer.innerHTML = newResults.innerHTML;
+            } else {
+                throw new Error("The results section could not be found.");
+            }
+        } catch (error) {
+            errorContainer.textContent =
+                "Could not complete analysis. Check the Flask terminal and try again.";
+            console.error(error);
+        } finally {
+            button.disabled = false;
+            button.textContent = "ANALYZE EMAIL";
+        }
+    });
+
+    fileInput.addEventListener("change", function () {
+        if (fileInput.files.length) {
+            textInput.value = "";
+        }
+    });
+    </script>
+</body>
+</html>

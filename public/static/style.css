@@ -1,0 +1,342 @@
+/* MAIN MOTIVE: Style the PHISHGUARD web interface. */
+
+:root {
+    color-scheme: dark;
+    font-family: Inter, "Segoe UI", sans-serif;
+    background: #070b12;
+    color: #e7edf7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808 !important;
+    background-image: none !important;
+    color: #E6EDF3;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.container {
+    width: min(900px, 92%);
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.logo {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #64f5c5;
+}
+
+.subtitle {
+    color: #ffffff;
+    font-size: 1.3rem;
+}
+
+.description {
+    color: #9eafc3;
+    line-height: 1.7;
+}
+
+.panel {
+    padding: 28px;
+    margin: 24px 0;
+    border: 1px solid #244451;
+    border-radius: 18px;
+    background: rgba(11, 19, 30, 0.92);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+    margin-top: 0;
+    color: #64f5c5;
+}
+
+h3 {
+    margin-top: 28px;
+    color: #83d8ff;
+}
+
+label {
+    display: block;
+    margin: 16px 0 10px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 16px;
+    resize: vertical;
+    border: 1px solid #34566a;
+    border-radius: 12px;
+    background: #050a10;
+    color: #e7edf7;
+    font: inherit;
+    line-height: 1.6;
+}
+
+textarea:focus {
+    outline: 2px solid #64f5c5;
+    outline-offset: 2px;
+}
+
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 16px;
+    border: 0;
+    border-radius: 10px;
+    background: #64f5c5;
+    color: #06120f;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #a0ffdf;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid #34566a;
+    border-radius: 12px;
+    background: #0a1520;
+}
+
+.score strong {
+    font-size: 1.8rem;
+    color: #ffcf70;
+}
+
+.finding {
+    overflow-wrap: anywhere;
+    padding: 12px;
+    margin: 12px 0;
+    border-left: 3px solid #ffcf70;
+    background: #101923;
+    border-radius: 6px;
+}
+
+.url {
+    overflow-wrap: anywhere;
+    color: #ffcf70;
+}
+
+li {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.error {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 8px;
+    background: #3a171d;
+    color: #ffb7c0;
+}
+
+.disclaimer {
+    margin-top: 30px;
+    padding-top: 18px;
+    border-top: 1px solid #244451;
+    color: #9eafc3;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+footer {
+    padding: 24px 0;
+    text-align: center;
+    color: #718399;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 28px 0;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .score {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+/* MAIN MOTIVE: Give PHISHGUARD a polished cybersecurity dashboard design */
+
+:root {
+    color-scheme: dark;
+    --bg: #080808;
+    --panel: #111418;
+    --panel-hover: #171c22;
+    --border: #252c34;
+    --text: #e6edf3;
+    --muted: #929eaa;
+    --accent: #55f5c5;
+    --accent-dark: #092a21;
+}
+
+body {
+    background: var(--bg) !important;
+    background-image: none !important;
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.1px;
+}
+
+.container {
+    width: min(1000px, 92%);
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.hero {
+    text-align: left;
+    margin-bottom: 32px;
+    padding: 12px 0 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    color: var(--accent);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+}
+
+h2 {
+    color: var(--accent);
+    font-size: 1.45rem;
+    margin-bottom: 20px;
+}
+
+p {
+    color: var(--muted);
+}
+
+form,
+.results,
+.card,
+section {
+    border-radius: 14px;
+}
+
+form,
+.results {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin: 24px 0;
+}
+
+textarea,
+input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #090c10;
+    color: var(--text);
+    border: 1px solid #303945;
+    border-radius: 10px;
+    padding: 16px;
+    font: inherit;
+    transition: border-color 0.2s ease;
+}
+
+textarea {
+    min-height: 260px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+button,
+input[type="submit"] {
+    background: var(--accent);
+    color: #06130f;
+    border: none;
+    border-radius: 9px;
+    padding: 15px 22px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background: #7fffd8;
+    transform: translateY(-1px);
+}
+
+.results,
+.card {
+    box-shadow: none;
+}
+
+.results h2,
+.results h3 {
+    margin-top: 8px;
+}
+
+.results li {
+    margin-bottom: 12px;
+}
+
+.results a {
+    color: var(--accent);
+    overflow-wrap: anywhere;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+}
+
+::selection {
+    background: var(--accent);
+    color: #06130f;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 94%;
+        padding: 24px 0;
+    }
+
+    form,
+    .results {
+        padding: 18px;
+    }
+
+    .hero {
+        text-align: left;
+    }
+}

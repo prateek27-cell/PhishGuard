@@ -1,0 +1,189 @@
+PHISHING IDENTIFIER PROJECT
+__________________________
+
+
+
+DEPLOYMENT 			Kali Linux
+Email input and processing	Python
+Suspicious language detection	Python, Regex
+URL extraction and analysis	Python, urllib.parse
+Risk scoring engine		Python
+Analysis report	Python, 	JSON
+Website interface		HTML, CSS, JavaScript
+Backend integration		Flask
+Email file upload		Python email parser
+Machine learning		Pandas, Scikit-learn
+Testing and evaluation		Pytest, labelled dataset
+
+
+
+
+1. HOMEPAGE- HTML CSS JS
+
+Analyze an email
+upload an email
+analysis History
+how app works
+
+
+2. USER PROVIDES MAIL-
+
+first opt - paste the email (user will simply copy and paste the mail)
+OR
+upload an email - we will get sender info, mail subject, reply address, reported SPF, DKIM and DMARC and mail URL (user will directly upload the mail to our app)
+
+
+3. EXTRACT INFOMARTION- Python's built-in email parsing capabilities and regular expressions
+
+app will solve the issue in Dynamic prog way, break the sections in different parts and work on it like-
+subject
+email body
+URLs
+sender
+reply addresses
+attachments
+
+4. SUSPICIOUS ACTIVITIES / LANGUAGE- 
+
+first it will detect some common typos like,
+"Your bank acc will be blocked in 10 mins if you wont click this button"
+urgent threat
+requests for OTPs and Passwords
+unexpected payments
+false subscriptions
+anything that creates a inappropriate pressure on the user to do smthg
+
+App's work:
+identify pressure
+threat
+req for OTPs or passwords
+
+-raise and record that issue as a warning sign
+
+5. INVESTIGATE URLs- Python's urllib.parse, regular expressions and carefully designed detection rules.
+
+App's work:
+extracts URLs and check their structure
+eg- https://"ip addr"/login
+our app will flag that URL or an ip addr rather than domain names
+
+CHECK weather the mail has:
+a specific fake pattern
+an URL that's inappropriate, IF there is an mail that's suspicious, avoid opening it
+does the URL use HTTP or HTTPS	
+does the brand name or user actually exist or not
+
+6. CHECK MAIL HEADERS- Python email parsing and header-analysis rules.
+
+These can help us investigate where the email came from and whether its claimed identity is consistent with the available evidence
+it will check:
+sender's addr - if the org is real or fake
+Reply to addr - if the sender's addr and reply to addr are diff 
+return path 
+receive headers - delivery servers are recorded
+reports like SPF DMARC etc
+
+7. CALCULATE RISK SCORE-
+
+Threatening language			+10
+Request for sensitive information	+20
+Suspicious URL characteristics		+25
+Sender and reply-address mismatch	+20
+Reported authentication failure		+15
+
+
+IF:
+Risk score		Displayed assessment
+0–24			Lower risk
+25–49			Some suspicious indicators
+50–74			High risk
+75–100			Very high risk
+
+8. REPORT-
+
+will show:
+risk score
+flagged issues
+URL analysis
+header analysis
+req for sensitive info.
+
+"WHY?"
+reason of every flagging issues
+
+"RECOMMENDED"
+dont reply
+dont share personal infos.
+report the mail in IT dept. and call the bank for confirmation about the mail
+
+9. ADD ML-
+
+app cant rely on manually written mails, what if the user is actually from any org but still is pretending to be real
+
+The process will be:
+1. Obtain a suitable labelled dataset.
+2. Clean and prepare the email text.
+3. Convert the text into numerical features using TF-IDF.
+4. Train a classification model.
+5. Test it on emails it hasn't seen during training.
+6. Measure precision, recall and F1-score.
+7. Compare the model's results with our rule-based detector.
+
+
+10. TURN IT IN A PROTFOLIO PROJECT FOR RESUME-
+
+include:
+- A polished, responsive user interface.
+- Email text analysis.
+- URL analysis.
+- ".eml" upload and header inspection.
+- An explainable risk score.
+- Machine-learning classification, if evaluation shows it is useful.
+- Unit tests and sample emails.
+- A GitHub repository with a README.
+- Screenshots and a description of the detection methodology.
+
+Also add sensible security controls:
+- Validate uploaded file sizes and formats.
+- Never execute uploaded attachments.
+- Never automatically open suspicious URLs.
+- Keep email contents local by default.
+- Avoid storing sensitive emails unnecessarily.
+- Treat all submitted email content as untrusted data.
+
+
+
+WORKFOLOW:
+
+
+       USER OPENS PHISHGUARD
+                 |
+                 v
+      PASTES EMAIL OR UPLOADS
+             AN .EML FILE
+                 |
+                 v
+       PYTHON EMAIL PARSER
+                 |
+                 v
+       EXTRACT AVAILABLE DATA
+        /        |         \
+       v         v          v
+  TEXT CHECK  URL CHECK  HEADER CHECK
+        \        |         /
+         \       |        /
+          v      v       v
+          COMBINE FINDINGS
+                 |
+                 v
+          CALCULATE RISK
+                 |
+                 v
+       GENERATE EXPLANATIONS
+                 |
+                 v
+        DISPLAY SECURITY REPORT
+                 |
+                 v
+       RECOMMEND SAFE NEXT STEPS
+

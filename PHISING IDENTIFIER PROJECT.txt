@@ -3,16 +3,16 @@ __________________________
 
 
 
-DEPLOYMENT 			Kali Linux
-Email input and processing	Python
+DEPLOYMENT 			       Kali Linux
+Email input and processing	       Python
 Suspicious language detection	Python, Regex
-URL extraction and analysis	Python, urllib.parse
-Risk scoring engine		Python
-Analysis report	Python, 	JSON
-Website interface		HTML, CSS, JavaScript
-Backend integration		Flask
-Email file upload		Python email parser
-Machine learning		Pandas, Scikit-learn
+URL extraction and analysis	       Python, urllib.parse
+Risk scoring engine		       Python
+Analysis report	              Python, JSON
+Website interface		       HTML, CSS, JavaScript
+Backend integration		       Flask
+Email file upload		       Python email parser
+Machine learning		       Pandas, Scikit-learn
 Testing and evaluation		Pytest, labelled dataset
 
 
